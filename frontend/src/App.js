@@ -36,6 +36,8 @@ import UserEditScreen from './screens/UserEditScreen';
 import MapScreen from './screens/MapScreen';
 import ForgetPasswordScreen from './screens/ForgetPasswordScreen';
 import ResetPasswordScreen from './screens/ResetPasswordScreen';
+import CustomLook from './screens/CustomLook';
+import Pay from './screens/pay';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -175,6 +177,8 @@ function App() {
               <Route path="/search" element={<SearchScreen />} />
               <Route path="/signin" element={<SigninScreen />} />
               <Route path="/signup" element={<SignupScreen />} />
+              <Route path="/product/custom_look/:slugId" element={<CustomLook />} />
+              <Route path="/pay" element={<Pay />} />
               <Route
                 path="/forget-password"
                 element={<ForgetPasswordScreen />}
@@ -221,7 +225,7 @@ function App() {
                 path="/shipping"
                 element={<ShippingAddressScreen />}
               ></Route>
-              <Route path="/payment" element={<PaymentMethodScreen />}></Route>
+              <Route path="/payment" element={<Pay />}></Route>
               {/* Admin Routes */}
               <Route
                 path="/admin/dashboard"

@@ -44,6 +44,48 @@ function ProductScreen() {
   const [rating, setRating] = useState(0);
   const [comment, setComment] = useState('');
   const [selectedImage, setSelectedImage] = useState('');
+  const [selectedUserImage, setSelectedUserImage] = useState(null);
+
+  const handleFileChange = (event) => {
+    setSelectedUserImage(event.target.files[0]);
+  };
+
+  const handleFormSubmit = async (event) => {
+    console.log('clicked')
+    event.preventDefault();
+
+
+    if (selectedUserImage) {
+      const formData = new FormData();
+      formData.append('image', selectedUserImage);
+      formData.append('userId', userInfo._id);
+
+      const headers = {
+        Authorization: `Bearer${userInfo.token}`,
+      };
+      try {
+        const response = await fetch(
+          `/api/users/upload/image?width=1080&height=720`,
+          {
+            method: 'POST',
+            headers,
+            body: formData,
+          }
+        );
+        const result = await response.json();
+        console.log(result);
+        console.log(product._id)
+        console.log(userInfo._id);
+      } catch (error) {
+        return error;
+      }
+    }
+  };
+
+
+
+
+
 
   const navigate = useNavigate();
   const params = useParams();
@@ -148,20 +190,13 @@ function ProductScreen() {
             <ListGroup.Item>Pirce : ${product.price}</ListGroup.Item>
             <ListGroup.Item>
               <Row xs={1} md={2} className="g-2">
-                {[product.image, ...product.images].map((x) => (
-                  <Col key={x}>
-                    <Card>
-                      <Button
-                        className="thumbnail"
-                        type="button"
-                        variant="light"
-                        onClick={() => setSelectedImage(x)}
-                      >
-                        <Card.Img variant="top" src={x} alt="product" />
-                      </Button>
-                    </Card>
-                  </Col>
-                ))}
+                    <Link to={`/product/custom_look/${product.slug}`} className='w-100'><Button className='secondary w-100'>Check Custom Look</Button></Link>
+                    {/* <form onSubmit={handleFormSubmit}>
+                      <input type='file' name='image' onChange={handleFileChange} />
+                      <button type='submit' className='btn btn-primary'>
+                        Add Image
+                      </button>
+                    </form> */}
               </Row>
             </ListGroup.Item>
             <ListGroup.Item>

@@ -3,7 +3,15 @@ import bcrypt from 'bcryptjs';
 import expressAsyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken';
 import User from '../models/userModel.js';
+import UserImage from '../models/userImageModel.js';
 import { isAuth, isAdmin, generateToken, baseUrl, mailgun } from '../utils.js';
+import uploadImage from '../middleware/upload.js'
+import manageImage from '../utils/upload.js'
+import fs from 'fs';
+import FormData from 'form-data';
+import { PassThrough, Stream, Writable } from 'stream';
+import axios from 'axios';
+import { pipeline } from 'stream/promises';
 
 const userRouter = express.Router();
 
@@ -194,5 +202,39 @@ userRouter.post(
     });
   })
 );
+
+userRouter.post('/upload/image', uploadImage, manageImage,
+  expressAsyncHandler(async (req, res) => {
+    const { userId } = req.body;
+    const newUserImage = new UserImage({
+      userId,
+      path: req.pathName,
+    });
+    const userImage = await newUserImage.save();
+    res.send({
+      id: userImage._id,
+      path: userImage.path,
+    });
+  })
+)
+
+userRouter.post('/custom/image', expressAsyncHandler(async (req, res) => {
+  const { userImageUrl, productImageUrl } = req.body;
+  console.log(userImageUrl, productImageUrl)
+  const requestData = {
+    personImage: 'https://th.bing.com/th/id/R.b3f55245c75bf896c44fd7ae75cfa458?rik=oYx6VB6R5JNWDA&pid=ImgRaw&r=0',
+    clothImage: 'https://www.filmyvastra.com/wp-content/uploads/2019/06/Black-Wide-tshirt-without-hanger-Recovered-scaled.jpg'
+  };
+
+  try {
+    const response = await axios.post('https://sabawi.theupcomers.com/processImage', requestData);
+    console.log(response.data)
+    return res.json(response.data);
+  } catch (error) {
+    console.log(error);
+  }
+
+
+}));
 
 export default userRouter;
