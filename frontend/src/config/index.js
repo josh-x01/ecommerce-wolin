@@ -1,5 +1,5 @@
 const api = 'https://wolin-ecommerce.onrender.com'
-const homepage = 'http://localhost:3000'
+const homepage = 'https://ecommerce-wolin.onrender.com'
 
 export {
   api,
