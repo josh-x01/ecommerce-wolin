@@ -222,13 +222,14 @@ userRouter.post('/custom/image', expressAsyncHandler(async (req, res) => {
     personImage: userImageUrl,
     clothImage: productImageUrl,
   };
+  console.log(userImageUrl, productImageUrl);
 
-  try {
-    const response = await axios.post('https://sabawi.theupcomers.com/processImage', requestData);
-    return res.json(response.data);
-  } catch (error) {
-    console.log(error);
-  }
+  // try {
+  //   const response = await axios.post('https://sabawi.theupcomers.com/processImage', requestData);
+  //   return res.json(response.data);
+  // } catch (error) {
+  //   console.log(error);
+  // }
 
 
 }));
