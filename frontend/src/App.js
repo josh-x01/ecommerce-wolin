@@ -38,6 +38,7 @@ import ForgetPasswordScreen from './screens/ForgetPasswordScreen';
 import ResetPasswordScreen from './screens/ResetPasswordScreen';
 import CustomLook from './screens/CustomLook';
 import Pay from './screens/pay';
+import { api } from './config';
 
 function App() {
   const { state, dispatch: ctxDispatch } = useContext(Store);
@@ -56,7 +57,7 @@ function App() {
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const { data } = await axios.get(`/api/products/categories`);
+        const { data } = await axios.get(`https://wolin-ecommerce.onrender.com/api/products/categories`);
         setCategories(data);
       } catch (err) {
         toast.error(getError(err));

@@ -1,9 +1,3 @@
-import { useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Col from 'react-bootstrap/Col';
-import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
-import Row from 'react-bootstrap/Row';
 import { v4 } from 'uuid';
 import React, { useContext, useEffect, useReducer } from 'react';
 import { Store } from '../Store';
@@ -19,6 +13,8 @@ export default function Pay() {
   cart.shippingPrice = cart.itemsPrice > 100 ? round2(0) : round2(10);
   cart.taxPrice = round2(0.15 * cart.itemsPrice);
   cart.totalPrice = cart.itemsPrice + cart.shippingPrice + cart.taxPrice;
+  const { hostname, port } = window.location;
+  console.log(hostname, port);
   return <>
     <form method="POST" action="https://api.chapa.co/v1/hosted/pay" >
 
@@ -48,9 +44,9 @@ export default function Pay() {
       <div className="form-outline mb-4">
         <input type="hidden" className='form-control' name="logo" value="https://chapa.link/asset/images/chapa_swirl.svg" /></div>
       <div className="form-outline mb-4">
-        <input type="hidden" className='form-control' name="callback_url" value="https://example.com/callbackurl" /></div>
+        <input type="hidden" className='form-control' name="callback_url" value={`http://${hostname}:${port}/`} /></div>
       <div className="form-outline mb-4">
-        <input type="hidden" className='form-control' name="return_url" value="https://example.com/returnurl" /></div>
+        <input type="hidden" className='form-control' name="return_url" value={`http://${hostname}:${port}/`} /></div>
       <div className="form-outline mb-4">
         <input type="hidden" className='form-control' name="meta[title]" value="test" /></div>
       <div className="form-outline mb-4">

@@ -8,7 +8,7 @@ import { useContext, useEffect, useState } from 'react';
 import { Store } from '../Store';
 import { toast } from 'react-toastify';
 import { getError } from '../utils';
-
+import { api } from '../config';
 export default function SignupScreen() {
   const navigate = useNavigate();
   const { search } = useLocation();
@@ -29,7 +29,7 @@ export default function SignupScreen() {
       return;
     }
     try {
-      const { data } = await Axios.post('/api/users/signup', {
+      const { data } = await Axios.post('https://wolin-ecommerce.onrender.com/api/users/signup', {
         name,
         email,
         password,

@@ -65,7 +65,7 @@ export default function CustomLook() {
     const fetchData = async () => {
       dispatch({ type: 'FETCH_REQUEST' });
       try {
-        const result = await axios.get(`/api/products/slug/${slugId}`);
+        const result = await axios.get(`https://wolin-ecommerce.onrender.com/api/products/slug/${slugId}`);
         dispatch({ type: 'FETCH_SUCCESS', payload: result.data });
       } catch (err) {
         dispatch({ type: 'FETCH_FAIL', payload: getError(err) });
@@ -90,7 +90,7 @@ export default function CustomLook() {
     };
     try {
       const response = await fetch(
-        `/api/users/upload/image?width=480&height=720`,
+        `https://wolin-ecommerce.onrender.com/api/users/upload/image?width=480&height=720`,
         {
           method: 'POST',
           headers,
@@ -127,17 +127,17 @@ export default function CustomLook() {
       formData.append('userId', userInfo._id);
       const userImageResult = await uploadUserImage(formData);
       const { path } = userImageResult;
-      setUserImage(`${api}/${path}`);
+      setUserImage(`https://wolin-ecommerce.onrender.com/${path}`);
       const { hostname, port } = window.location;
 
       try {
-        const response = await fetch('/api/users/custom/image', {
+        const response = await fetch('https://wolin-ecommerce.onrender.com/api/users/custom/image', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
           },
           body: JSON.stringify({
-            userImageUrl: `${api}/${path}`,
+            userImageUrl: `https://wolin-ecommerce.onrender.com/${path}`,
             productImageUrl: `${hostname}:${port}/${product.image}`,
           }),
         });
