@@ -1,4 +1,4 @@
-const api = 'http://localhost:5000'
+const api = 'https://wolin-ecommerce.onrender.com'
 
 export {
   api

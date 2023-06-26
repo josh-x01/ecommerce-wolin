@@ -219,8 +219,8 @@ userRouter.post('/custom/image', expressAsyncHandler(async (req, res) => {
   const { userImageUrl, productImageUrl } = req.body;
   console.log(userImageUrl, productImageUrl)
   const requestData = {
-    personImage: 'https://th.bing.com/th/id/R.b3f55245c75bf896c44fd7ae75cfa458?rik=oYx6VB6R5JNWDA&pid=ImgRaw&r=0',
-    clothImage: 'https://www.filmyvastra.com/wp-content/uploads/2019/06/Black-Wide-tshirt-without-hanger-Recovered-scaled.jpg'
+    personImage: userImageUrl,
+    clothImage: productImageUrl,
   };
 
   try {
