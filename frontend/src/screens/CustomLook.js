@@ -41,13 +41,12 @@ const reducer = (state, action) => {
   }
 };
 
-
 export default function CustomLook() {
 
   const [selectedUserImage, setSelectedUserImage] = useState(null);
   const [newImage, setNewImage] = useState(null)
   const [userImage, setUserImage] = useState(null)
-  const [load, setLoad] = useState(true);
+  const [uploading, setUploading] = useState(false);
 
   const { state, dispatch: ctxDispatch } = useContext(Store);
   const { cart, userInfo } = state;
@@ -116,10 +115,13 @@ export default function CustomLook() {
       });
   }
 
-  // const api = process.env.REACT_APP_API_UR;
+  // const api = process.env.REACT_APP_API_URL;
   const { hostname, port } = window.location;
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    setUploading(true);
+    setUserImage(null);
+    setNewImage(null);
 
     if (selectedUserImage) {
       
@@ -142,9 +144,11 @@ export default function CustomLook() {
             productImageUrl: `${homepage}/${product.image}`,
           }),
         });
-        console.log('result soon');
         const data = await response.json();
         setNewImage(data.image.response.ouput_path_img);
+        if (data) {
+          setUploading(false);
+        }
       } catch (error) {
         console.error(error);
       }
@@ -155,39 +159,45 @@ export default function CustomLook() {
     <div>
       <h1>Here you can see how our product fits in you</h1>
       <Row>
-        <Col md={6}>
-          <Row>
-            <Col md={6}>
-              <h4>Product</h4>
+        <Col md={3}>
+          <h4>Product</h4>
+          <img
+            className="img-large"
+            src={product.image}
+            alt='your look'
+          ></img>
+        </Col>
+        <Col md={3}>
+          <h4>You</h4>
+          {
+            userImage === null ?
+              <div>
+                <h4>Your uploaded image will be displayed here</h4>
+                {uploading === true &&
+                  <LoadingBox />}
+              </div>
+              :
               <img
                 className="img-large"
-                src={product.image}
+                src={userImage}
                 alt='your look'
               ></img>
-            </Col>
-            <Col md={6}>
-              <h4>You</h4>
-              {
-                userImage === null ? <LoadingBox /> :
-                  <img
-                    className="img-large"
-                    src={userImage}
-                    alt='your look'
-                  ></img>
-              }
-            </Col>
-            <Col md={12}>
-              <h4>New Look</h4>
-              {
-                newImage === null ? <LoadingBox /> :
-                  <img
-                    className="img-large"
-                    src={newImage === null ? product.image : newImage}
-                    alt='your look'
-                  ></img>
-              }
-            </Col>
-          </Row>
+          }
+        </Col>
+        <Col md={3}>
+          <h4>New Look</h4>
+          {
+            newImage === null ? <div>
+              <h4>AI generated image will be displayed here</h4>
+              {uploading === true &&
+                <LoadingBox />}
+            </div> :
+              <img
+                className="img-large"
+                src={newImage === null ? product.image : newImage}
+                alt='your look'
+              ></img>
+          }
         </Col>
         <Col md={3}>
           <ListGroup variant="flush">
