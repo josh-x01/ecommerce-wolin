@@ -1,6 +1,7 @@
 import { v4 } from 'uuid';
 import React, { useContext, useEffect, useReducer } from 'react';
 import { Store } from '../Store';
+import { homepage } from '../config';
 // import request from 'request';
 
 export default function Pay() {
@@ -44,9 +45,9 @@ export default function Pay() {
       <div className="form-outline mb-4">
         <input type="hidden" className='form-control' name="logo" value="https://chapa.link/asset/images/chapa_swirl.svg" /></div>
       <div className="form-outline mb-4">
-        <input type="hidden" className='form-control' name="callback_url" value={`http://${hostname}:${port}/`} /></div>
+        <input type="hidden" className='form-control' name="callback_url" value={`${homepage}`} /></div>
       <div className="form-outline mb-4">
-        <input type="hidden" className='form-control' name="return_url" value={`http://${hostname}:${port}/`} /></div>
+        <input type="hidden" className='form-control' name="return_url" value={`${homepage}`} /></div>
       <div className="form-outline mb-4">
         <input type="hidden" className='form-control' name="meta[title]" value="test" /></div>
       <div className="form-outline mb-4">

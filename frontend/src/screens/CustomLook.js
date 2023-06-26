@@ -122,6 +122,7 @@ export default function CustomLook() {
     event.preventDefault();
 
     if (selectedUserImage) {
+      
       const formData = new FormData();
       formData.append('image', selectedUserImage);
       formData.append('userId', userInfo._id);
