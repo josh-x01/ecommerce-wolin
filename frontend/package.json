@@ -1,6 +1,7 @@
 {
   "name": "frontend",
   "proxy": "https://wolin-ecommerce.onrender.com",
+  "homepage": "https://ecommerce-wolin.onrender.com",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
