@@ -7,11 +7,8 @@ import UserImage from '../models/userImageModel.js';
 import { isAuth, isAdmin, generateToken, baseUrl, mailgun } from '../utils.js';
 import uploadImage from '../middleware/upload.js'
 import manageImage from '../utils/upload.js'
-import fs from 'fs';
-import FormData from 'form-data';
-import { PassThrough, Stream, Writable } from 'stream';
 import axios from 'axios';
-import { pipeline } from 'stream/promises';
+
 
 const userRouter = express.Router();
 
@@ -228,7 +225,6 @@ userRouter.post('/custom/image', expressAsyncHandler(async (req, res) => {
 
   try {
     const response = await axios.post('https://sabawi.theupcomers.com/processImage', requestData);
-    console.log(response.data)
     return res.json(response.data);
   } catch (error) {
     console.log(error);
