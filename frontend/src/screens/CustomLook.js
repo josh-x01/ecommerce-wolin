@@ -16,7 +16,7 @@ import { getError } from '../utils';
 import stream from 'stream';
 import LoadingBox from '../components/LoadingBox';
 // const fs = require('fs');
-import { api } from '../config';
+import { api, homepage } from '../config';
 
 
 
@@ -138,7 +138,7 @@ export default function CustomLook() {
           },
           body: JSON.stringify({
             userImageUrl: `https://wolin-ecommerce.onrender.com/${path}`,
-            productImageUrl: `${hostname}:${port}/${product.image}`,
+            productImageUrl: `${homepage}/${product.image}`,
           }),
         });
         console.log('result soon');
