@@ -230,8 +230,6 @@ userRouter.post('/custom/image', expressAsyncHandler(async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-
-
 }));
 
 export default userRouter;
